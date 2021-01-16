@@ -3,6 +3,7 @@ package pixelion.main;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
@@ -28,7 +29,7 @@ public class Window extends Canvas {
 	public Window(Pixelion pxl) {
 		this.frame = new JFrame(TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(dim);
+		setFrameSize(dim);
 		frame.setResizable(false); // TODO change in future (resizing)
 		frame.add(this);
 		
@@ -60,6 +61,12 @@ public class Window extends Canvas {
 	public void render() {
 		bs.show();
 		g.dispose(); // Supposedly this does something for memories' sake
+		
+	}
+	
+	private void setFrameSize(Dimension d) {
+		Insets insets = frame.getInsets();
+		frame.setSize(d.width + insets.top + insets.bottom, d.height + insets.left + insets.right);
 		
 	}
 	

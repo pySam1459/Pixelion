@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import pixelion.editor.Editor;
 import pixelion.utils.Func;
+import pixelion.utils.Settings;
 
 public class Pixelion implements Runnable {
 	/* Main class, contains main thread with the origins of the tick and render trees
@@ -19,6 +20,7 @@ public class Pixelion implements Runnable {
 	private Editor edt;
 	
 	public Pixelion() {
+		Settings.loadSettings();
 		Func.loadFonts();
 		
 		this.window = new Window(this);
