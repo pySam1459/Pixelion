@@ -13,6 +13,7 @@ public class LayerManager {
 	public LayerManager() {
 		this.layers = new ArrayList<>();
 		
+		newLayer(32, 32);
 	}
 	
 	public void tick() {
@@ -21,15 +22,23 @@ public class LayerManager {
 	
 	public void render(Graphics2D g) {
 		if(cLayer != null) {
-			g.drawImage(cLayer.getImg(), lxoff, lyoff, lwidth, lheight, null);
+			g.drawImage(cLayer.getRender(), lxoff, lyoff, lwidth, lheight, null);
 			
 		}
 	}
 	
 	public void newLayer(int w, int h) {
-		this.cLayer = new Layer(w, h);
+		this.cLayer = new Layer(w, h, this);
 		layers.add(cLayer);
 		
+	}
+	
+	public int getlwidth() {
+		return lwidth;
+	}
+	
+	public int getlheight() {
+		return lheight;
 	}
 
 }
