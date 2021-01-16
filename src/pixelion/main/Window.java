@@ -9,6 +9,9 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import pixelion.utils.Keyboard;
+import pixelion.utils.Mouse;
+
 public class Window extends Canvas {
 
 	private static final long serialVersionUID = -1370712036945684032L;
@@ -19,12 +22,18 @@ public class Window extends Canvas {
 	private BufferStrategy bs;
 	private Graphics2D g;
 	
+	public static Mouse mouse;
+	public static Keyboard keyboard;
+	
 	public Window(Pixelion pxl) {
 		this.frame = new JFrame(TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(dim);
 		frame.setResizable(false); // TODO change in future (resizing)
 		frame.add(this);
+		
+		Window.mouse = new Mouse(this);
+		Window.keyboard = new Keyboard(this);
 		
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
