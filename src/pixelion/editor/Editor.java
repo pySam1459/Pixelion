@@ -8,14 +8,17 @@ import pixelion.utils.Consts;
 
 public class Editor {
 	
+	private Stage stage;
 	private LayerManager lm;
 	
 	public Editor() {
-		this.lm = new LayerManager();
+		this.stage = new Stage();
+		this.lm = new LayerManager(stage);
 
 	}
 
 	public void tick() {
+		stage.tick();
 		lm.tick();
 		
 	}
@@ -24,7 +27,8 @@ public class Editor {
 		g.setColor(Consts.BACKGROUND_COLOR);
 		g.fillRect(0, 0, Window.dim.width, Window.dim.height);
 		
-		lm.render(g);
+		lm.render(stage.getGraphics());
+		stage.render(g);
 		
 	}
 

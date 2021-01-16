@@ -5,10 +5,13 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class Mouse implements MouseListener {
+public class Mouse implements MouseListener, MouseWheelListener {
 
 	public boolean left=false, right=false;
+	private int notches = 0;
 	
 	private Canvas canvas;
 	private Point p1, p2;
@@ -16,6 +19,7 @@ public class Mouse implements MouseListener {
 	public Mouse(Canvas c) {
 		this.canvas = c;
 		c.addMouseListener(this);
+		c.addMouseWheelListener(this);
 		
 	}
 
@@ -39,6 +43,21 @@ public class Mouse implements MouseListener {
 			right = false;
 			
 		}
+	}
+	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent m) {
+		int n = m.getWheelRotation();
+		this.notches += n;
+		
+	}
+	
+	public int getWheel() {
+		// Probably to be changed, resets when notches is queried
+		int t = notches;
+		notches = 0;
+		return t;
+		
 	}
 
 	public Point getXY() {

@@ -4,14 +4,21 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import pixelion.editor.Stage;
+
 public class LayerManager {
+	/* This class managers the layers and how to render them
+	 * NOTE: the rendered layer(s) are rendered onto the stage, which is rendered onto the screen
+     * The stage may change dimensions, which is to be noted
+	 * */
 	
 	private List<Layer> layers;
 	private Layer cLayer; // Current layer
-	private int lxoff=64, lyoff=64, lwidth=768, lheight=768;
+	private Stage stage;
 	
-	public LayerManager() {
+	public LayerManager(Stage stage) {
 		this.layers = new ArrayList<>();
+		this.stage = stage;
 		
 		newLayer(32, 32);
 	}
@@ -22,23 +29,19 @@ public class LayerManager {
 	
 	public void render(Graphics2D g) {
 		if(cLayer != null) {
-			g.drawImage(cLayer.getRender(), lxoff, lyoff, lwidth, lheight, null);
+			g.drawImage(cLayer.getImg(), 0, 0, stage.getWidth(), stage.getHeight(), null);
 			
 		}
 	}
 	
+	public Layer getCLayer() {
+		return cLayer;
+	}
+	
 	public void newLayer(int w, int h) {
-		this.cLayer = new Layer(w, h, this);
+		this.cLayer = new Layer(w, h);
 		layers.add(cLayer);
 		
-	}
-	
-	public int getlwidth() {
-		return lwidth;
-	}
-	
-	public int getlheight() {
-		return lheight;
 	}
 
 }
